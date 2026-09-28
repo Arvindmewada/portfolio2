@@ -1,0 +1,124 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #F4F0E5;
+  --bg-subtle: #ECE6D8;
+  --ink: #1A1712;
+  --muted: #756F5E;
+  --line: #D9D2BF;
+  --line-soft: #E7E1D0;
+  --accent: #C2401A;
+  --accent-hover: #A73413;
+  --on-accent: #F6F1E5;
+  --card-bg: #EFE9DC;
+  --serif: 'Fraunces', Georgia, serif;
+  --sans: 'Plus Jakarta Sans', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+html.dark {
+  --bg: #151310;
+  --bg-subtle: #1C1915;
+  --ink: #EAE4D3;
+  --muted: #9E9783;
+  --line: #2E2A22;
+  --line-soft: #221F18;
+  --accent: #E05A2B;
+  --accent-hover: #F26E40;
+  --on-accent: #151310;
+  --card-bg: #1C1915;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 88px;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  line-height: 1.65;
+  overflow-x: hidden;
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+/* Subtle editorial grain overlay */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  pointer-events: none;
+  opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.06'/%3E%3C/svg%3E");
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.font-serif {
+  font-family: var(--serif);
+}
+
+.font-sans {
+  font-family: var(--sans);
+}
+
+.font-mono {
+  font-family: var(--mono);
+}
+
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgba(194, 64, 26, 0.45);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(194, 64, 26, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(194, 64, 26, 0);
+  }
+}
+
+.pulse-dot {
+  animation: pulse-ring 2s infinite;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 32s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
