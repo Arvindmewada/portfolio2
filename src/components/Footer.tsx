@@ -1,13 +1,13 @@
 import React from 'react';
-import { ArrowUp, Edit3 } from 'lucide-react';
+import { ArrowUp, Key } from 'lucide-react';
 import { ProfileData } from '../data/profile';
 
 interface FooterProps {
   profile: ProfileData;
-  onOpenEditModal: () => void;
+  onOpenApiKeyGenerator?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ profile, onOpenEditModal }) => {
+export const Footer: React.FC<FooterProps> = ({ profile, onOpenApiKeyGenerator }) => {
   const currentYear = new Date().getFullYear();
 
   const scrollToTop = () => {
@@ -23,14 +23,16 @@ export const Footer: React.FC<FooterProps> = ({ profile, onOpenEditModal }) => {
           <span className="hidden md:inline">SOFTWARE ENGINEER · CSE-AIML</span>
         </div>
 
-        <div className="text-center">
-          <button
-            onClick={onOpenEditModal}
-            className="hover:text-[var(--accent)] transition-colors inline-flex items-center gap-1 cursor-pointer"
-          >
-            <Edit3 className="w-3 h-3 text-[var(--accent)]" />
-            <span>CUSTOMIZE DETAILS</span>
-          </button>
+        <div className="flex items-center gap-4">
+          {onOpenApiKeyGenerator && (
+            <button
+              onClick={onOpenApiKeyGenerator}
+              className="hover:text-[var(--accent)] transition-colors inline-flex items-center gap-1 cursor-pointer"
+            >
+              <Key className="w-3 h-3 text-[var(--accent)]" />
+              <span>KEY GENERATOR</span>
+            </button>
+          )}
         </div>
 
         <button

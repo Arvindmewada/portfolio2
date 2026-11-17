@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowDown, Download, Mail, Sparkles } from 'lucide-react';
+import { ArrowDown, Download, Mail } from 'lucide-react';
 import { ProfileData } from '../data/profile';
 
 interface HeroProps {
   profile: ProfileData;
   onDownloadResume: () => void;
-  onOpenEditModal: () => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ profile, onDownloadResume, onOpenEditModal }) => {
+export const Hero: React.FC<HeroProps> = ({ profile, onDownloadResume }) => {
   const [roleIndex, setRoleIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);

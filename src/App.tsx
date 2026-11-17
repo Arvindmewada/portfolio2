@@ -9,32 +9,11 @@ import { Skills } from './components/Skills';
 import { Projects } from './components/Projects';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
-import { EditProfileModal } from './components/EditProfileModal';
+import { ApiKeyGeneratorModal } from './components/ApiKeyGeneratorModal';
 import { ToastContainer, ToastMessage } from './components/Toast';
 
 export default function App() {
-  // Profile state with localStorage persistence
-  const [profile, setProfile] = useState<ProfileData>(() => {
-    try {
-      const saved = localStorage.getItem('arvind_mewada_portfolio_profile_v1');
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        // Ensure images and structure are intact
-        return {
-          ...DEFAULT_PROFILE,
-          ...parsed,
-          photo: DEFAULT_PROFILE.photo, // Keep validated local image
-          projects: DEFAULT_PROFILE.projects.map((dp, i) => ({
-            ...dp,
-            ...(parsed.projects?.[i] || {})
-          }))
-        };
-      }
-    } catch (e) {
-      console.error('Error loading saved profile:', e);
-    }
-    return DEFAULT_PROFILE;
-  });
+  const profile: ProfileData = DEFAULT_PROFILE;
 
   // Dark/Light theme state
   const [isDark, setIsDark] = useState<boolean>(() => {
@@ -52,8 +31,8 @@ export default function App() {
   // Toast notifications state
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
 
-  // Edit Modal State
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  // API Key Generator Modal State
+  const [isApiKeyModalOpen, setIsApiKeyModalOpen] = useState(false);
 
   // Active section for navbar spy
   const [activeSection, setActiveSection] = useState('home');
@@ -113,26 +92,6 @@ export default function App() {
 
   const handleToggleTheme = () => {
     setIsDark((prev) => !prev);
-  };
-
-  const handleSaveProfile = (updated: ProfileData) => {
-    setProfile(updated);
-    try {
-      localStorage.setItem('arvind_mewada_portfolio_profile_v1', JSON.stringify(updated));
-      addToast('Profile details updated successfully!', 'success');
-    } catch (e) {
-      console.error('Failed to save to localStorage', e);
-    }
-  };
-
-  const handleResetProfile = () => {
-    setProfile(DEFAULT_PROFILE);
-    try {
-      localStorage.removeItem('arvind_mewada_portfolio_profile_v1');
-      addToast('Reset to default profile details', 'info');
-    } catch (e) {
-      console.error(e);
-    }
   };
 
   const handleDownloadResume = () => {
@@ -210,7 +169,7 @@ export default function App() {
         profile={profile}
         isDark={isDark}
         onToggleTheme={handleToggleTheme}
-        onOpenEditModal={() => setIsEditModalOpen(true)}
+        onOpenApiKeyGenerator={() => setIsApiKeyModalOpen(true)}
         activeSection={activeSection}
       />
 
@@ -219,7 +178,6 @@ export default function App() {
         <Hero
           profile={profile}
           onDownloadResume={handleDownloadResume}
-          onOpenEditModal={() => setIsEditModalOpen(true)}
         />
 
         {/* Marquee Ribbon */}
@@ -244,16 +202,14 @@ export default function App() {
       {/* Footer */}
       <Footer
         profile={profile}
-        onOpenEditModal={() => setIsEditModalOpen(true)}
+        onOpenApiKeyGenerator={() => setIsApiKeyModalOpen(true)}
       />
 
-      {/* Profile Details Customizer Modal */}
-      <EditProfileModal
-        isOpen={isEditModalOpen}
-        onClose={() => setIsEditModalOpen(false)}
-        profile={profile}
-        onSave={handleSaveProfile}
-        onReset={handleResetProfile}
+      {/* API Key & Token Generator Modal */}
+      <ApiKeyGeneratorModal
+        isOpen={isApiKeyModalOpen}
+        onClose={() => setIsApiKeyModalOpen(false)}
+        onCopyToast={(msg) => addToast(msg, 'copy')}
       />
 
       {/* Toasts */}

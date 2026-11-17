@@ -91,8 +91,21 @@ export const Projects: React.FC<ProjectsProps> = ({ profile }) => {
                     </p>
                   </div>
 
-                  {/* Tech stack tags on desktop */}
-                  <div className="hidden md:flex items-center gap-2">
+                  {/* Tech stack & direct demo link on desktop */}
+                  <div className="hidden md:flex items-center gap-3">
+                    {project.demoLink && (
+                      <a
+                        href={project.demoLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider px-3 py-1 bg-[var(--accent)] text-[var(--on-accent)] hover:bg-[var(--ink)] hover:text-[var(--bg)] transition-colors whitespace-nowrap"
+                        title={`Open live demo for ${project.title}`}
+                      >
+                        <span>Live Demo</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    )}
                     {project.tech.slice(0, 3).map((tech, tIdx) => (
                       <span
                         key={tIdx}
@@ -179,16 +192,16 @@ export const Projects: React.FC<ProjectsProps> = ({ profile }) => {
                         </div>
 
                         {/* Action Links */}
-                        <div className="flex flex-wrap gap-4 pt-4 border-t border-[var(--line)]">
+                        <div className="flex flex-wrap items-center gap-4 pt-4 border-t border-[var(--line)]">
                           {project.demoLink && (
                             <a
                               href={project.demoLink}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-[var(--ink)] hover:text-[var(--accent)] border-b border-[var(--accent)] pb-1 transition-colors"
+                              className="inline-flex items-center gap-2 px-4 py-2 bg-[var(--ink)] text-[var(--bg)] hover:bg-[var(--accent)] hover:text-[var(--on-accent)] font-mono text-xs uppercase tracking-widest transition-colors whitespace-nowrap"
                             >
-                              <ExternalLink className="w-3.5 h-3.5 text-[var(--accent)]" />
-                              <span>Live Preview</span>
+                              <ExternalLink className="w-3.5 h-3.5" />
+                              <span>Working Demo</span>
                             </a>
                           )}
 

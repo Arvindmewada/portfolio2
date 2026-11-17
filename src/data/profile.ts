@@ -210,7 +210,7 @@ export const DEFAULT_PROFILE: ProfileData = {
       category: "Full Stack",
       tech: ["Python", "PostgreSQL", "HTML5", "CSS", "JavaScript"],
       link: "https://github.com/Arvindmewada",
-      demoLink: "https://github.com/Arvindmewada",
+      demoLink: "https://zenonapp-mobile-prototype.vercel.app",
       img: project1Img,
       desc: "ZenonApp is a user-friendly digital marketplace that connects buyers and sellers, simplifying product discovery, buying, and selling through an intuitive and responsive interface. Designed with robust relational database schema modeling in PostgreSQL and structured backend business logic in Python.",
       highlights: [
@@ -227,7 +227,6 @@ export const DEFAULT_PROFILE: ProfileData = {
       category: "Backend",
       tech: ["Python", "OS Module", "Time Module", "CLI"],
       link: "https://github.com/Arvindmewada",
-      demoLink: "https://github.com/Arvindmewada",
       img: project2Img,
       desc: "Created a terminal based digital clock utilizing Python os and time modules. Implements continuous time rendering with screen refresh cycles, formatted date/time displays, and cross-platform compatibility without heavy external dependencies.",
       highlights: [

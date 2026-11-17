@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Moon, Sun, Menu, X, Edit3 } from 'lucide-react';
+import { Moon, Sun, Menu, X, Key } from 'lucide-react';
 import { ProfileData } from '../data/profile';
 
 interface NavbarProps {
   profile: ProfileData;
   isDark: boolean;
   onToggleTheme: () => void;
-  onOpenEditModal: () => void;
+  onOpenApiKeyGenerator?: () => void;
   activeSection: string;
 }
 
@@ -14,7 +14,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   profile,
   isDark,
   onToggleTheme,
-  onOpenEditModal,
+  onOpenApiKeyGenerator,
   activeSection
 }) => {
   const [scrolled, setScrolled] = useState(false);
@@ -92,16 +92,18 @@ export const Navbar: React.FC<NavbarProps> = ({
           </nav>
 
           {/* Zone 3: 1-2 primary actions */}
-          <div className="flex items-center gap-3">
-            <button
-              onClick={onOpenEditModal}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-[var(--line)] text-xs font-mono text-[var(--ink)] hover:border-[var(--ink)] hover:bg-[var(--ink)] hover:text-[var(--bg)] transition-colors cursor-pointer whitespace-nowrap"
-              title="Edit Portfolio Profile Details"
-              aria-label="Edit Profile Details"
-            >
-              <Edit3 className="w-3.5 h-3.5 text-[var(--accent)]" />
-              <span className="hidden sm:inline">Customize</span>
-            </button>
+          <div className="flex items-center gap-2.5">
+            {onOpenApiKeyGenerator && (
+              <button
+                onClick={onOpenApiKeyGenerator}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-[var(--line)] text-xs font-mono text-[var(--ink)] hover:border-[var(--ink)] hover:bg-[var(--ink)] hover:text-[var(--bg)] transition-colors cursor-pointer whitespace-nowrap"
+                title="API Key & Token Generator"
+                aria-label="API Key Generator"
+              >
+                <Key className="w-3.5 h-3.5 text-[var(--accent)]" />
+                <span className="hidden lg:inline">API Key Gen</span>
+              </button>
+            )}
 
             <button
               onClick={onToggleTheme}
@@ -145,19 +147,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <span className="font-mono text-sm text-[var(--accent)]">0{idx + 1}</span>
               </a>
             ))}
-
-            <div className="pt-4 flex flex-col gap-3">
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onOpenEditModal();
-                }}
-                className="w-full py-3 text-center border border-[var(--ink)] font-mono text-xs uppercase tracking-widest text-[var(--ink)] hover:bg-[var(--ink)] hover:text-[var(--bg)] transition-colors flex items-center justify-center gap-2"
-              >
-                <Edit3 className="w-4 h-4 text-[var(--accent)]" />
-                Customize Details
-              </button>
-            </div>
           </div>
         </div>
       )}
